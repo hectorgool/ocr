@@ -16,9 +16,11 @@ func main() {
 
 	var accountNumber AccountNumbers
 
-	for display := 0; display < 9; display++ {
-		for segment := 0; segment < 3; segment++ {
-			accountNumber.AccountNumber[display].DisplayRow1[segment] = "a"
+	for row := 0; row < 3; row++ {
+		for display := 0; display < 9; display++ {
+			for segment := 0; segment < 3; segment++ {
+				accountNumber.AccountNumber[display].DisplayRow1[segment] = "a"
+			}
 		}
 	}
 
