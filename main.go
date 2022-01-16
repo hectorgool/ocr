@@ -3,10 +3,11 @@ package main
 import (
 	"bufio"
 	"bytes"
-	"fmt"
 	"log"
 	"os"
 	"strings"
+
+	"github.com/gin-gonic/gin"
 )
 
 type AccountNumbers struct {
@@ -74,9 +75,14 @@ var (
 )
 
 func main() {
-	PutInStruct()
-	str := GetNumber(accountNumber)
-	fmt.Printf("%v\n", PrintNumber(str))
+	r := gin.Default()
+	r.GET("/number", func(c *gin.Context) {
+		PutInStruct()
+		c.JSON(200, gin.H{
+			"number": PrintNumber(GetNumber(accountNumber)),
+		})
+	})
+	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
 }
 
 func PrintNumber(input []string) string {
