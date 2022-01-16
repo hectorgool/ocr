@@ -1,8 +1,7 @@
 package main
 
 import (
-	"ocr/schema"
-	"ocr/utils"
+	"ocr/controller"
 
 	"github.com/gin-gonic/gin"
 )
@@ -15,12 +14,6 @@ func main() {
 			"data": "ocr",
 		})
 	})
-
-	r.GET("/number", func(c *gin.Context) {
-		utils.PutInStruct()
-		c.JSON(200, gin.H{
-			"number": utils.PrintNumber(utils.GetNumber(schema.ACTNumber)),
-		})
-	})
+	r.GET("/number", controller.GetAccountNumber)
 	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
 }
