@@ -23,29 +23,34 @@ func PutInStruct() {
 
 	for rowCount, row := range rows {
 
+		whiteLine := len(row)
 		segments := bytes.Runes([]byte(row))
 
-		for _, segment := range segments {
+		if whiteLine != 0 {
 
-			if rowCount == 0 {
-				schema.ACTNumber.AccountNumber[countAccountNumber].DisplayRow1[countDisplayRow] = string(segment)
-			}
-			if rowCount == 1 {
-				schema.ACTNumber.AccountNumber[countAccountNumber].DisplayRow2[countDisplayRow] = string(segment)
-			}
-			if rowCount == 2 {
-				schema.ACTNumber.AccountNumber[countAccountNumber].DisplayRow3[countDisplayRow] = string(segment)
+			for _, segment := range segments {
+
+				if rowCount == 0 {
+					schema.ACTNumber.AccountNumber[countAccountNumber].DisplayRow1[countDisplayRow] = string(segment)
+				}
+				if rowCount == 1 {
+					schema.ACTNumber.AccountNumber[countAccountNumber].DisplayRow2[countDisplayRow] = string(segment)
+				}
+				if rowCount == 2 {
+					schema.ACTNumber.AccountNumber[countAccountNumber].DisplayRow3[countDisplayRow] = string(segment)
+				}
+
+				countDisplayRow++
+
+				if countDisplayRow == 3 {
+					countAccountNumber++
+					countDisplayRow = 0
+				}
+				if countAccountNumber == 9 {
+					countAccountNumber = 0
+				}
 			}
 
-			countDisplayRow++
-
-			if countDisplayRow == 3 {
-				countAccountNumber++
-				countDisplayRow = 0
-			}
-			if countAccountNumber == 9 {
-				countAccountNumber = 0
-			}
 		}
 	}
 
