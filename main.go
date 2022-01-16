@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 )
 
 type AccountNumbers struct {
@@ -69,15 +70,20 @@ var (
 		DisplayRow2: [3]string{"|", "_", "|"},
 		DisplayRow3: [3]string{" ", "_", "|"},
 	}
+	accountNumber AccountNumbers
 )
 
 func main() {
 	PutInStruct()
+	str := GetNumber(accountNumber)
+	fmt.Printf("%v\n", PrintNumber(str))
+}
+
+func PrintNumber(input []string) string {
+	return strings.Join(input, "")
 }
 
 func PutInStruct() {
-
-	var accountNumber AccountNumbers
 
 	countAccountNumber := 0
 	countDisplayRow := 0
@@ -109,14 +115,19 @@ func PutInStruct() {
 			if countAccountNumber == 9 {
 				countAccountNumber = 0
 			}
-
 		}
 	}
 
-	for n, DisplayInputNumber := range accountNumber.AccountNumber {
-		fmt.Printf("n: %v number : %v\n", n, DisplayInputNumber)
-		fmt.Printf("ValidateDisplay() %v\n", ValidateDisplay(DisplayInputNumber))
+}
+
+func GetNumber(input AccountNumbers) []string {
+
+	var str []string
+
+	for _, DisplayInputNumber := range input.AccountNumber {
+		str = append(str, ValidateDisplay(DisplayInputNumber))
 	}
+	return str
 
 }
 
