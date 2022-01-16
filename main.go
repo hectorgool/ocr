@@ -72,6 +72,10 @@ var (
 )
 
 func main() {
+	PutInStruct()
+}
+
+func PutInStruct() {
 
 	var accountNumber AccountNumbers
 
@@ -107,10 +111,7 @@ func main() {
 			}
 
 		}
-		fmt.Println()
 	}
-
-	//fmt.Printf("\nLa estructura es:\n %v\n\n", accountNumber)
 
 	for n, DisplayInputNumber := range accountNumber.AccountNumber {
 		fmt.Printf("n: %v number : %v\n", n, DisplayInputNumber)
