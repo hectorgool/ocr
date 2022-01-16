@@ -18,6 +18,14 @@ type Display struct {
 	DisplayRow3 [3]string
 }
 
+var (
+	Display8 = Display{
+		DisplayRow1: [3]string{" ", "_", " "},
+		DisplayRow2: [3]string{"|", "_", "|"},
+		DisplayRow3: [3]string{"|", "_", "|"},
+	}
+)
+
 func main() {
 
 	var accountNumber AccountNumbers
@@ -59,6 +67,8 @@ func main() {
 
 	fmt.Printf("\nLa estructura es:\n %v\n", accountNumber)
 
+	ValidateDisplay(accountNumber)
+
 }
 
 func ReadFileNuberAccounts() []string {
@@ -79,4 +89,15 @@ func ReadFileNuberAccounts() []string {
 
 	file.Close()
 	return text
+}
+
+func ValidateDisplay(accountNumber AccountNumbers) {
+
+	fmt.Printf("\nValidateDisplay struct: %v \n", accountNumber.AccountNumber[0])
+
+	fmt.Printf("\nValidateDisplay Display8: %v \n", Display8)
+
+	if accountNumber.AccountNumber[0] == Display8 {
+		fmt.Println("ok")
+	}
 }
