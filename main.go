@@ -19,10 +19,55 @@ type Display struct {
 }
 
 var (
+	Display0 = Display{
+		DisplayRow1: [3]string{" ", "_", " "},
+		DisplayRow2: [3]string{"|", " ", "|"},
+		DisplayRow3: [3]string{"|", "_", "|"},
+	}
+	Display1 = Display{
+		DisplayRow1: [3]string{" ", " ", " "},
+		DisplayRow2: [3]string{" ", " ", "|"},
+		DisplayRow3: [3]string{" ", " ", "|"},
+	}
+	Display2 = Display{
+		DisplayRow1: [3]string{" ", "_", " "},
+		DisplayRow2: [3]string{" ", "_", "|"},
+		DisplayRow3: [3]string{"|", "_", " "},
+	}
+	Display3 = Display{
+		DisplayRow1: [3]string{" ", "_", " "},
+		DisplayRow2: [3]string{" ", "_", "|"},
+		DisplayRow3: [3]string{" ", "_", "|"},
+	}
+	Display4 = Display{
+		DisplayRow1: [3]string{" ", " ", " "},
+		DisplayRow2: [3]string{"|", "_", "|"},
+		DisplayRow3: [3]string{" ", " ", "|"},
+	}
+	Display5 = Display{
+		DisplayRow1: [3]string{" ", "_", " "},
+		DisplayRow2: [3]string{"|", "_", " "},
+		DisplayRow3: [3]string{" ", "_", "|"},
+	}
+	Display6 = Display{
+		DisplayRow1: [3]string{" ", "_", " "},
+		DisplayRow2: [3]string{"|", "_", " "},
+		DisplayRow3: [3]string{"|", "_", "|"},
+	}
+	Display7 = Display{
+		DisplayRow1: [3]string{" ", "_", " "},
+		DisplayRow2: [3]string{" ", " ", "|"},
+		DisplayRow3: [3]string{" ", " ", "|"},
+	}
 	Display8 = Display{
 		DisplayRow1: [3]string{" ", "_", " "},
 		DisplayRow2: [3]string{"|", "_", "|"},
 		DisplayRow3: [3]string{"|", "_", "|"},
+	}
+	Display9 = Display{
+		DisplayRow1: [3]string{" ", "_", " "},
+		DisplayRow2: [3]string{"|", "_", "|"},
+		DisplayRow3: [3]string{" ", "_", "|"},
 	}
 )
 
@@ -65,9 +110,12 @@ func main() {
 		fmt.Println()
 	}
 
-	fmt.Printf("\nLa estructura es:\n %v\n", accountNumber)
+	//fmt.Printf("\nLa estructura es:\n %v\n\n", accountNumber)
 
-	ValidateDisplay(accountNumber)
+	for n, DisplayInputNumber := range accountNumber.AccountNumber {
+		fmt.Printf("n: %v number : %v\n", n, DisplayInputNumber)
+		fmt.Printf("ValidateDisplay() %v\n", ValidateDisplay(DisplayInputNumber))
+	}
 
 }
 
@@ -91,13 +139,31 @@ func ReadFileNuberAccounts() []string {
 	return text
 }
 
-func ValidateDisplay(accountNumber AccountNumbers) {
+func ValidateDisplay(input Display) string {
 
-	fmt.Printf("\nValidateDisplay struct: %v \n", accountNumber.AccountNumber[0])
-
-	fmt.Printf("\nValidateDisplay Display8: %v \n", Display8)
-
-	if accountNumber.AccountNumber[0] == Display8 {
-		fmt.Println("ok")
+	switch input {
+	case Display0:
+		return "0"
+	case Display1:
+		return "1"
+	case Display2:
+		return "2"
+	case Display3:
+		return "3"
+	case Display4:
+		return "4"
+	case Display5:
+		return "5"
+	case Display6:
+		return "6"
+	case Display7:
+		return "7"
+	case Display8:
+		return "8"
+	case Display9:
+		return "9"
+	default:
+		return "?"
 	}
+
 }
