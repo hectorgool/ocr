@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"bytes"
 	"fmt"
 	"log"
 	"os"
@@ -19,33 +20,44 @@ type Display struct {
 
 func main() {
 
-	/*
-		var accountNumber AccountNumbers
+	var accountNumber AccountNumbers
 
-		for row := 0; row < 3; row++ {
-			for display := 0; display < 9; display++ {
-				for segment := 0; segment < 3; segment++ {
-					if row == 0 {
-						accountNumber.AccountNumber[display].DisplayRow1[segment] = "a"
-					}
-					if row == 1 {
-						accountNumber.AccountNumber[display].DisplayRow2[segment] = "b"
-					}
-					if row == 2 {
-						accountNumber.AccountNumber[display].DisplayRow3[segment] = "c"
-					}
-				}
-			}
-		}
-
-		fmt.Printf("\nLa estructura es:\n %v\n", accountNumber)
-	*/
+	countAccountNumber := 0
+	countDisplayRow := 0
 
 	rows := ReadFileNuberAccounts()
 
-	for i, row := range rows {
-		fmt.Printf("%v %v\n", i, row)
+	for rowCount, row := range rows {
+
+		segments := bytes.Runes([]byte(row))
+
+		for _, segment := range segments {
+
+			if rowCount == 0 {
+				accountNumber.AccountNumber[countAccountNumber].DisplayRow1[countDisplayRow] = string(segment)
+			}
+			if rowCount == 1 {
+				accountNumber.AccountNumber[countAccountNumber].DisplayRow2[countDisplayRow] = string(segment)
+			}
+			if rowCount == 2 {
+				accountNumber.AccountNumber[countAccountNumber].DisplayRow3[countDisplayRow] = string(segment)
+			}
+
+			countDisplayRow++
+
+			if countDisplayRow == 3 {
+				countAccountNumber++
+				countDisplayRow = 0
+			}
+			if countAccountNumber == 9 {
+				countAccountNumber = 0
+			}
+
+		}
+		fmt.Println()
 	}
+
+	fmt.Printf("\nLa estructura es:\n %v\n", accountNumber)
 
 }
 
