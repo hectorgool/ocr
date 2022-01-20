@@ -141,3 +141,11 @@ func ArrayDisplaysToarrayStrings() []string {
 	}
 	return output
 }
+
+func CheckCharacterXInString(input string) bool {
+	var output bool = false
+	if strings.Contains(input, "?") {
+		output = true
+	}
+	return output
+}
