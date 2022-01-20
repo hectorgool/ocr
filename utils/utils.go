@@ -5,6 +5,7 @@ import (
 	"bytes"
 	"log"
 	"os"
+	"strconv"
 	"strings"
 
 	"ocr/schema"
@@ -152,5 +153,10 @@ func CheckCharacterXInString(input string) bool {
 
 func StringToArray(input string) []string {
 	output := strings.Split(input, "")
+	return output
+}
+
+func stringToInt(input string) int {
+	output, _ := strconv.Atoi(input)
 	return output
 }
