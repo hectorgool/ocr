@@ -65,6 +65,7 @@ Es decir, el archivo tiene un número de cuenta por fila. Si algunos caracteres 
 #### Pistas 
 
 La recomendación es encontrar una forma de escribir celdas 3x3 en 3 líneas en su código, para que formen dígitos identificables. Incluso si el código en realidad no los representa de esa manera internamente. Es preferible leer: 
+
 ```sh
 " " + 
 "|_|" + 
@@ -77,7 +78,9 @@ en lugar de:
 #### Casos de prueba sugeridos 
 
 ```sh
-1a historia de usuario _ _ _ _ _ _ _ _ _ | || || || || || || || || | |_||_||_||_||_||_||_||_||_| 
+1a historia de usuario
+
+ _ _ _ _ _ _ _ _ _ | || || || || || || || || | |_||_||_||_||_||_||_||_||_| 
 => 000000000 OK 
 | | | | | | | | | | | | | | | | | | 
 => 111111111 ERR 
@@ -99,7 +102,10 @@ _ _ _ _ _ _ _ _ _ |_||_||_||_||_||_||_||_||_| _| _| _| _| _| _| _| _| _|
 => 999999999 ERR 
 _ _ _ _ _ _ _ | _| _||_||_ |_ ||_||_| ||_ _| | _||_| ||_| _| 
 => 123456789 ERR 
-3a historia de usuario _ _ _ _ _ _ _ _ | || || || || || || ||_ | |_||_||_||_||_||_||_| _| | 
+
+3a historia de usuario:
+
+ _ _ _ _ _ _ _ _ | || || || || || || ||_ | |_||_||_||_||_||_||_| _| | 
 => 000000051 OK 
 _ _ _ _ _ _ _ |_||_|| || ||_ | | | _ | _||_||_||_| | | | _| 
 => 49006771? ILL 
