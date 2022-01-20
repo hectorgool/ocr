@@ -3,6 +3,7 @@ package utils
 import (
 	"bufio"
 	"bytes"
+	"fmt"
 	"log"
 	"os"
 	"strconv"
@@ -36,16 +37,13 @@ func GetArrayAccounts() []schema.AccountNumbers {
 			for _, segment := range segments {
 
 				if rowCount == 0 {
-					schema.ACTNumber.AccountNumber[countAccountNumber].DisplayRow1[countDisplayRow] =
-						string(segment)
+					schema.ACTNumber.AccountNumber[countAccountNumber].DisplayRow1[countDisplayRow] = string(segment)
 				}
 				if rowCount == 1 {
-					schema.ACTNumber.AccountNumber[countAccountNumber].DisplayRow2[countDisplayRow] =
-						string(segment)
+					schema.ACTNumber.AccountNumber[countAccountNumber].DisplayRow2[countDisplayRow] = string(segment)
 				}
 				if rowCount == 2 {
-					schema.ACTNumber.AccountNumber[countAccountNumber].DisplayRow3[countDisplayRow] =
-						string(segment)
+					schema.ACTNumber.AccountNumber[countAccountNumber].DisplayRow3[countDisplayRow] = string(segment)
 				}
 
 				countDisplayRow++
@@ -75,7 +73,6 @@ func GetNumber(input schema.AccountNumbers) []string {
 		str = append(str, ValidateDisplay(DisplayInputNumber))
 	}
 	return str
-
 }
 
 func ReadFileNuberAccounts() []string {
@@ -127,6 +124,26 @@ func ValidateDisplay(input schema.Display) string {
 
 }
 
+func ArrayStringsValidate() []string {
+
+	var (
+		inputNumbers []string = ArrayDisplaysToarrayStrings()
+		output       []string
+	)
+
+	for _, number := range inputNumbers {
+		character := CheckCharacterXInString(number)
+		if character {
+			flag := fmt.Sprintf("%v ILL", number)
+			output = append(output, flag)
+		} else {
+			flag := ValidateMod(GetMod(SumArrayString(StringToArray(number))))
+			output = append(output, fmt.Sprintf("%v %v", number, flag))
+		}
+	}
+	return output
+}
+
 func ArrayDisplaysToarrayStrings() []string {
 
 	var (
@@ -154,6 +171,16 @@ func CheckCharacterXInString(input string) bool {
 func StringToArray(input string) []string {
 	output := strings.Split(input, "")
 	return output
+}
+
+func SumArrayString(input []string) int {
+	n := 10
+	sum := 0
+	for _, digit := range input {
+		n--
+		sum += stringToInt(digit) * n
+	}
+	return sum
 }
 
 func stringToInt(input string) int {
