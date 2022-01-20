@@ -149,3 +149,8 @@ func CheckCharacterXInString(input string) bool {
 	}
 	return output
 }
+
+func StringToArray(input string) []string {
+	output := strings.Split(input, "")
+	return output
+}
