@@ -14,14 +14,18 @@ func PrintNumber(input []string) string {
 	return strings.Join(input, "")
 }
 
-func PutInStruct() {
+func GetArrayAccounts() []schema.AccountNumbers {
 
-	countAccountNumber := 0
-	countDisplayRow := 0
+	var (
+		accounts           []schema.AccountNumbers
+		countAccountNumber int = 0
+		countDisplayRow    int = 0
+		rowCount           int = 0
+	)
 
 	rows := ReadFileNuberAccounts()
 
-	for rowCount, row := range rows {
+	for _, row := range rows {
 
 		whiteLine := len(row)
 		segments := bytes.Runes([]byte(row))
@@ -31,17 +35,19 @@ func PutInStruct() {
 			for _, segment := range segments {
 
 				if rowCount == 0 {
-					schema.ACTNumber.AccountNumber[countAccountNumber].DisplayRow1[countDisplayRow] = string(segment)
+					schema.ACTNumber.AccountNumber[countAccountNumber].DisplayRow1[countDisplayRow] =
+						string(segment)
 				}
 				if rowCount == 1 {
-					schema.ACTNumber.AccountNumber[countAccountNumber].DisplayRow2[countDisplayRow] = string(segment)
+					schema.ACTNumber.AccountNumber[countAccountNumber].DisplayRow2[countDisplayRow] =
+						string(segment)
 				}
 				if rowCount == 2 {
-					schema.ACTNumber.AccountNumber[countAccountNumber].DisplayRow3[countDisplayRow] = string(segment)
+					schema.ACTNumber.AccountNumber[countAccountNumber].DisplayRow3[countDisplayRow] =
+						string(segment)
 				}
 
 				countDisplayRow++
-
 				if countDisplayRow == 3 {
 					countAccountNumber++
 					countDisplayRow = 0
@@ -50,10 +56,14 @@ func PutInStruct() {
 					countAccountNumber = 0
 				}
 			}
-
+			rowCount++
+			if rowCount == 3 {
+				rowCount = 0
+				accounts = append(accounts, schema.ACTNumber)
+			}
 		}
 	}
-
+	return accounts
 }
 
 func GetNumber(input schema.AccountNumbers) []string {
