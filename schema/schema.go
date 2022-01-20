@@ -61,5 +61,11 @@ var (
 		DisplayRow2: [3]string{"|", "_", "|"},
 		DisplayRow3: [3]string{" ", "_", "|"},
 	}
+	Displayx = Display{
+		DisplayRow1: [3]string{" ", "_", " "},
+		DisplayRow2: [3]string{" ", "_", " "},
+		DisplayRow3: [3]string{" ", "_", "|"},
+	}
+
 	ACTNumber AccountNumbers
 )
