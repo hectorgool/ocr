@@ -13,6 +13,42 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func TestCheckCharacterInString(t *testing.T) {
+
+	t.Parallel()
+
+	t.Run("check character ? is in the string 000000000", func(t *testing.T) {
+
+		// define inputs
+		input := "000000000"
+
+		// define expected result
+		expected := false
+
+		// perform test
+		actual := CheckCharacterXInString(input)
+
+		// assert that the actual result is equal to expected
+		assert.Equal(t, expected, actual)
+	})
+
+	t.Run("check character ? is in the string 1234?678?", func(t *testing.T) {
+
+		// define inputs
+		input := "1234?678?"
+
+		// define expected result
+		expected := true
+
+		// perform test
+		actual := CheckCharacterXInString(input)
+
+		// assert that the actual result is equal to expected
+		assert.Equal(t, expected, actual)
+	})
+
+}
+
 func TestValidateDisplay(t *testing.T) {
 
 	t.Parallel()
