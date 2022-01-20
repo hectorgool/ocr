@@ -125,3 +125,19 @@ func ValidateDisplay(input schema.Display) string {
 	}
 
 }
+
+func ArrayDisplaysToarrayStrings() []string {
+
+	var (
+		validate, output []string
+	)
+
+	for _, account := range GetArrayAccounts() {
+		for n := 0; n < 9; n++ {
+			validate = append(validate, ValidateDisplay(account.AccountNumber[n]))
+		}
+		output = append(output, strings.Join(validate, ""))
+		validate = nil
+	}
+	return output
+}
