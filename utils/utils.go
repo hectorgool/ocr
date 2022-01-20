@@ -160,3 +160,8 @@ func stringToInt(input string) int {
 	output, _ := strconv.Atoi(input)
 	return output
 }
+
+func GetMod(input int) int {
+	output := input % 11
+	return output
+}
