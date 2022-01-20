@@ -165,3 +165,13 @@ func GetMod(input int) int {
 	output := input % 11
 	return output
 }
+
+func ValidateMod(input int) string {
+	output := ""
+	if input == 0 {
+		output = "OK"
+	} else {
+		output = "ERR"
+	}
+	return output
+}
