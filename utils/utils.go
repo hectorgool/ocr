@@ -9,6 +9,7 @@ import (
 	"strconv"
 	"strings"
 
+	"encoding/base64"
 	"ocr/schema"
 )
 
@@ -16,7 +17,56 @@ func PrintNumber(input []string) string {
 	return strings.Join(input, "")
 }
 
-func GetArrayAccounts() []schema.AccountNumbers {
+func GetArrayAccounts(inputs []string) []schema.AccountNumbers {
+
+	var (
+		accounts           []schema.AccountNumbers
+		countAccountNumber int = 0
+		countDisplayRow    int = 0
+		rowCount           int = 0
+	)
+
+	rows := inputs
+
+	for _, row := range rows {
+
+		whiteLine := len(row)
+		segments := bytes.Runes([]byte(row))
+
+		if whiteLine != 0 {
+
+			for _, segment := range segments {
+
+				if rowCount == 0 {
+					schema.ACTNumber.AccountNumber[countAccountNumber].DisplayRow1[countDisplayRow] = string(segment)
+				}
+				if rowCount == 1 {
+					schema.ACTNumber.AccountNumber[countAccountNumber].DisplayRow2[countDisplayRow] = string(segment)
+				}
+				if rowCount == 2 {
+					schema.ACTNumber.AccountNumber[countAccountNumber].DisplayRow3[countDisplayRow] = string(segment)
+				}
+
+				countDisplayRow++
+				if countDisplayRow == 3 {
+					countAccountNumber++
+					countDisplayRow = 0
+				}
+				if countAccountNumber == 9 {
+					countAccountNumber = 0
+				}
+			}
+			rowCount++
+			if rowCount == 3 {
+				rowCount = 0
+				accounts = append(accounts, schema.ACTNumber)
+			}
+		}
+	}
+	return accounts
+}
+
+func GetArrayAccountsFromFile() []schema.AccountNumbers {
 
 	var (
 		accounts           []schema.AccountNumbers
@@ -124,10 +174,10 @@ func ValidateDisplay(input schema.Display) string {
 
 }
 
-func ArrayStringsValidate() []string {
+func ArrayStringsValidateWithInput(inputs []string) []string {
 
 	var (
-		inputNumbers []string = ArrayDisplaysToarrayStrings()
+		inputNumbers []string = ArrayDisplaysToArrayStrings()
 		output       []string
 	)
 
@@ -144,13 +194,49 @@ func ArrayStringsValidate() []string {
 	return output
 }
 
-func ArrayDisplaysToarrayStrings() []string {
+func ArrayStringsValidate() []string {
+
+	var (
+		inputNumbers []string = ArrayDisplaysToArrayStrings()
+		output       []string
+	)
+
+	for _, number := range inputNumbers {
+		character := CheckCharacterXInString(number)
+		if character {
+			flag := fmt.Sprintf("%v ILL", number)
+			output = append(output, flag)
+		} else {
+			flag := ValidateMod(GetMod(SumArrayString(StringToArray(number))))
+			output = append(output, fmt.Sprintf("%v %v", number, flag))
+		}
+	}
+	return output
+}
+
+func ArrayDisplaysToArrayStringsWithInput(inputs []string) []string {
 
 	var (
 		validate, output []string
 	)
 
-	for _, account := range GetArrayAccounts() {
+	for _, account := range GetArrayAccounts(inputs) {
+		for n := 0; n < 9; n++ {
+			validate = append(validate, ValidateDisplay(account.AccountNumber[n]))
+		}
+		output = append(output, strings.Join(validate, ""))
+		validate = nil
+	}
+	return output
+}
+
+func ArrayDisplaysToArrayStrings() []string {
+
+	var (
+		validate, output []string
+	)
+
+	for _, account := range GetArrayAccountsFromFile() {
 		for n := 0; n < 9; n++ {
 			validate = append(validate, ValidateDisplay(account.AccountNumber[n]))
 		}
@@ -200,5 +286,16 @@ func ValidateMod(input int) string {
 	} else {
 		output = "ERR"
 	}
+	return output
+}
+
+func DecodeBase64String(input string) string {
+	output, _ := base64.StdEncoding.DecodeString(input)
+	fmt.Println(string(output))
+	return string(output)
+}
+
+func SplitStringByCharToArray(input string, splitChar string) []string {
+	output := strings.Split(input, splitChar)
 	return output
 }
