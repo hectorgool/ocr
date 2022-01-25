@@ -1,6 +1,8 @@
 package controller
 
 import (
+	"net/http"
+	"ocr/schema"
 	"ocr/utils"
 
 	"github.com/gin-gonic/gin"
@@ -18,6 +20,20 @@ func GetAccountNumber(c *gin.Context) {
 
 	c.JSON(200, gin.H{
 		"accounts": utils.ArrayStringsValidate(),
+	})
+
+}
+
+func PostNumbers(c *gin.Context) {
+
+	var json schema.JsonRequest
+	if err := c.ShouldBindJSON(&json); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	output := utils.ArrayStringsValidateWithInput(utils.SplitStringByCharToArray(utils.DecodeBase64String(json.Numbers), "\n"))
+	c.JSON(http.StatusOK, gin.H{
+		"numbers": output,
 	})
 
 }
