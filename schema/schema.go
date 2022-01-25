@@ -1,14 +1,18 @@
 package schema
 
-type AccountNumbers struct {
-	AccountNumber [9]Display
-}
-
-type Display struct {
-	DisplayRow1 [3]string
-	DisplayRow2 [3]string
-	DisplayRow3 [3]string
-}
+type (
+	AccountNumbers struct {
+		AccountNumber [9]Display
+	}
+	Display struct {
+		DisplayRow1 [3]string
+		DisplayRow2 [3]string
+		DisplayRow3 [3]string
+	}
+	JsonRequest struct {
+		Numbers string `json:"numbers" binding:"required"`
+	}
+)
 
 var (
 	Display0 = Display{
