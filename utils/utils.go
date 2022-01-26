@@ -319,8 +319,12 @@ func CreateLog(endpoint string, method string, input interface{}, output interfa
 			Output:   outputJson,
 		},
 	}
-	_, err := config.GetDB().NamedExec(`INSERT INTO log_db (id, endpoint, method, json_input, json_output)
-        VALUES (:id, :endpoint, :method, :json_input, :json_output)`, logDB)
+	_, err := config.GetDB().NamedExec(`
+		INSERT 
+		INTO log_db 
+			(id, endpoint, method, json_input, json_output)
+        VALUES 
+			(:id, :endpoint, :method, :json_input, :json_output)`, logDB)
 	if err != nil {
 		panic(err.Error())
 	}
