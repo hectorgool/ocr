@@ -121,3 +121,19 @@ curl -i -X  POST http://localhost:8080/numbers   -H "Accept: application/json" -
     "IF8gIF8gIF8gIF8gIF8gIF8gIF8gIF8gIF8gCnwgfHwgfHwgfHwgfHwgfHwgfHwgfHwgfHwgfAp8X3x8X3x8X3x8X3x8X3x8X3x8X3x8X3x8X3wKCiAgICAgICAgICAgICAgICAgICAgICAgICAgIAogIHwgIHwgIHwgIHwgIHwgIHwgIHwgIHwgIHwKICB8ICB8ICB8ICB8ICB8ICB8ICB8ICB8ICB8CgogXyAgXyAgXyAgXyAgXyAgXyAgXyAgXyAgXyAKIF98IF98IF98IF98IF98IF98IF98IF98IF98CnxfIHxfIHxfIHxfIHxfIHxfIHxfIHxfIHxfIAoKIF8gIF8gIF8gIF8gIF8gIF8gIF8gIF8gIF8gCiBffCBffCBffCBffCBffCBffCBffCBffCBffAogX3wgX3wgX3wgX3wgX3wgX3wgX3wgX3wgX3wKCiAgICAgICAgICAgICAgICAgICAgICAgICAgIAp8X3x8X3x8X3x8X3x8X3x8X3x8X3x8X3x8X3wKICB8ICB8ICB8ICB8ICB8ICB8ICB8ICB8ICB8CgogXyAgXyAgXyAgXyAgXyAgXyAgXyAgXyAgXyAKfF8gfF8gfF8gfF8gfF8gfF8gfF8gfF8gfF8gCiBffCBffCBffCBffCBffCBffCBffCBffCBffAoKIF8gIF8gIF8gIF8gIF8gIF8gIF8gIF8gIF8gCnxfIHxfIHxfIHxfIHxfIHxfIHxfIHxfIHxfIAp8X3x8X3x8X3x8X3x8X3x8X3x8X3x8X3x8X3wKCiBfICBfICBfICBfICBfICBfICBfICBfICBfIAogIHwgIHwgIHwgIHwgIHwgIHwgIHwgIHwgIHwKICB8ICB8ICB8ICB8ICB8ICB8ICB8ICB8ICB8CgogXyAgXyAgXyAgXyAgXyAgXyAgXyAgXyAgXyAKfF98fF98fF98fF98fF98fF98fF98fF98fF98CnxffHxffHxffHxffHxffHxffHxffHxffHxffAoKIF8gIF8gIF8gIF8gIF8gIF8gIF8gIF8gIF8gCnxffHxffHxffHxffHxffHxffHxffHxffHxffAogX3wgX3wgX3wgX3wgX3wgX3wgX3wgX3wgX3wKCiAgICBfICBfICAgICBfICBfICBfICBfICBfIAogIHwgX3wgX3x8X3x8XyB8XyAgIHx8X3x8X3wKICB8fF8gIF98ICB8IF98fF98ICB8fF98IF98CgogXyAgXyAgXyAgXyAgXyAgXyAgXyAgXyAgICAKfCB8fCB8fCB8fCB8fCB8fCB8fCB8fF8gICB8CnxffHxffHxffHxffHxffHxffHxffCBffCAgfAoKICAgIF8gIF8gIF8gIF8gIF8gIF8gICAgIF8gCnxffHxffHwgfHwgfHxfICAgfCAgfCAgfCAgfAogIHwgX3x8X3x8X3x8X3wgIHwgIHwgIHx8X3wKCiAgICBfICBfICAgICBfICBfICBfICBfICAgIAogIHwgX3wgX3x8X3wgXyB8XyAgIHx8X3x8X3wKICB8fF8gIF98ICB8IF8gfF98ICB8fF98IF98" 
 }'
 ```
+
+#### Acceso a la base de datos docker desde una terminal: 
+```sh
+docker exec -it ocr_db mysql -u santo -pasdf bunsan
+```
+
+#### Tabla log_db: 
+
+| Field  | Type  | Null  | Key  | Default  |  Extra |
+|---|---|---|---|---|---|
+| id   | varchar(36)  | NO  | PRI  | NULL   |   |
+| endpoint  | text  | YES  |   | NULL   |   |
+| method  | text  | YES  |   | NULL  |    |
+| json_input  | json  | YES  |   |  NULL  |   |
+| json_output  | json  | YES  |   | NULL   |   |
+| created_on  | datetime  | NO  |   | CURRENT_TIMESTAMP  | DEFAULT_GENERATED  |
