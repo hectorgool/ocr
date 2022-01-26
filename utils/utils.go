@@ -10,7 +10,11 @@ import (
 	"strings"
 
 	"encoding/base64"
+	"encoding/json"
+	"ocr/config"
 	"ocr/schema"
+
+	"github.com/google/uuid"
 )
 
 func PrintNumber(input []string) string {
@@ -298,4 +302,35 @@ func DecodeBase64String(input string) string {
 func SplitStringByCharToArray(input string, splitChar string) []string {
 	output := strings.Split(input, splitChar)
 	return output
+}
+
+func CreateLog(endpoint string, method string, input interface{}, output interface{}) {
+
+	id := uuid.New()
+	inputJson, _ := StructToJson(input)
+	outputJson, _ := StructToJson(output)
+
+	logDB := []schema.LogDB{
+		{
+			ID:       id,
+			EndPoint: endpoint,
+			Method:   method,
+			Input:    inputJson,
+			Output:   outputJson,
+		},
+	}
+	_, err := config.GetDB().NamedExec(`INSERT INTO log_db (id, endpoint, method, json_input, json_output)
+        VALUES (:id, :endpoint, :method, :json_input, :json_output)`, logDB)
+	if err != nil {
+		panic(err.Error())
+	}
+
+}
+
+func StructToJson(input interface{}) (interface{}, error) {
+	output, err := json.Marshal(input)
+	if err != nil {
+		return nil, err
+	}
+	return string(output), nil
 }
