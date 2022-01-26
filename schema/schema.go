@@ -1,5 +1,7 @@
 package schema
 
+import "github.com/google/uuid"
+
 type (
 	AccountNumbers struct {
 		AccountNumber [9]Display
@@ -11,6 +13,14 @@ type (
 	}
 	JsonRequest struct {
 		Numbers string `json:"numbers" binding:"required"`
+	}
+	LogDB struct {
+		ID        uuid.UUID   `json:"id" db:"id" binding:"required"`
+		EndPoint  string      `db:"endpoint"`
+		Method    string      `db:"method"`
+		Input     interface{} `db:"json_input"`
+		Output    interface{} `db:"json_output"`
+		CreatedOn string      `db:"created_on"`
 	}
 )
 
@@ -72,4 +82,15 @@ var (
 	}
 
 	ACTNumber AccountNumbers
+
+	Schema = `
+		CREATE TABLE IF NOT EXISTS log_db (
+			id VARCHAR(36) PRIMARY KEY,
+    		endpoint TEXT,
+    		method TEXT,
+    		json_input JSON,
+			json_output JSON,
+			created_on DATETIME NOT NULL DEFAULT NOW()
+		);
+	`
 )
