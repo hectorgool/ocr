@@ -27,13 +27,16 @@ func GetAccountNumber(c *gin.Context) {
 func PostNumbers(c *gin.Context) {
 
 	var json schema.JsonRequest
+
 	if err := c.ShouldBindJSON(&json); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
+
 	output := utils.ArrayStringsValidateWithInput(utils.SplitStringByCharToArray(utils.DecodeBase64String(json.Numbers), "\n"))
-	c.JSON(http.StatusOK, gin.H{
-		"numbers": output,
-	})
+	jsonResult := gin.H{"numbers": output}
+
+	utils.CreateLog("/numbers", "POST", json, jsonResult)
+	c.JSON(http.StatusOK, jsonResult)
 
 }
