@@ -14,6 +14,7 @@ import (
 	"ocr/config"
 	"ocr/schema"
 
+	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 )
 
@@ -304,19 +305,16 @@ func SplitStringByCharToArray(input string, splitChar string) []string {
 	return output
 }
 
-func CreateLog(endpoint string, method string, input interface{}, output interface{}) {
+func CreateLog(endpoint string, method string, input gin.H, output gin.H) {
 
 	id := uuid.New()
-	jsonInput := StructToJson(input)
-	jsonOutput := StructToJson(output)
-
 	logDB := []schema.LogDB{
 		{
 			ID:       id,
 			EndPoint: endpoint,
 			Method:   method,
-			Input:    jsonInput,
-			Output:   jsonOutput,
+			Input:    StructToJson(input),
+			Output:   StructToJson(output),
 		},
 	}
 
@@ -342,9 +340,9 @@ func StructToJson(input interface{}) []byte {
 
 }
 
-func GetLogRows() []schema.LogDBJson {
+func GetLogRows() []schema.LogDB {
 
-	logDB := []schema.LogDBJson{}
+	logDB := []schema.LogDB{}
 	err := config.GetDB().Select(&logDB, "SELECT id, endpoint, method, json_input, json_output, created_on FROM log_db")
 	if err != nil {
 		log.Fatalln(err)
