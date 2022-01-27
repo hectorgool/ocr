@@ -1,6 +1,13 @@
 package schema
 
-import "github.com/google/uuid"
+import (
+	"database/sql/driver"
+	"encoding/json"
+	"errors"
+	"fmt"
+
+	"github.com/google/uuid"
+)
 
 type (
 	AccountNumbers struct {
@@ -22,6 +29,15 @@ type (
 		Output    interface{} `db:"json_output"`
 		CreatedOn string      `db:"created_on"`
 	}
+	LogDBJson struct {
+		ID        uuid.UUID `json:"id" db:"id" binding:"required"`
+		EndPoint  string    `db:"endpoint"`
+		Method    string    `db:"method"`
+		Input     JsonData  `db:"json_input"`
+		Output    JsonData  `db:"json_output"`
+		CreatedOn string    `db:"created_on"`
+	}
+	JsonData map[string]interface{}
 )
 
 var (
@@ -94,3 +110,19 @@ var (
 		);
 	`
 )
+
+func (pc *JsonData) Scan(val interface{}) error {
+	switch v := val.(type) {
+	case []byte:
+		json.Unmarshal(v, &pc)
+		return nil
+	case string:
+		json.Unmarshal([]byte(v), &pc)
+		return nil
+	default:
+		return errors.New(fmt.Sprintf("Unsupported type: %T", v))
+	}
+}
+func (pc *JsonData) Value() (driver.Value, error) {
+	return json.Marshal(pc)
+}
