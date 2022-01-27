@@ -40,3 +40,11 @@ func PostNumbers(c *gin.Context) {
 	c.JSON(http.StatusOK, jsonResult)
 
 }
+
+func GetLogs(c *gin.Context) {
+
+	c.JSON(200, gin.H{
+		"logs": utils.GetLogRows(),
+	})
+
+}
