@@ -307,23 +307,24 @@ func SplitStringByCharToArray(input string, splitChar string) []string {
 func CreateLog(endpoint string, method string, input interface{}, output interface{}) {
 
 	id := uuid.New()
-	inputJson, _ := StructToJson(input)
-	outputJson, _ := StructToJson(output)
+	jsonInput := StructToJson(input)
+	jsonOutput := StructToJson(output)
 
 	logDB := []schema.LogDB{
 		{
 			ID:       id,
 			EndPoint: endpoint,
 			Method:   method,
-			Input:    inputJson,
-			Output:   outputJson,
+			Input:    jsonInput,
+			Output:   jsonOutput,
 		},
 	}
+
 	_, err := config.GetDB().NamedExec(`
-		INSERT 
-		INTO log_db 
+		INSERT
+		INTO log_db
 			(id, endpoint, method, json_input, json_output)
-        VALUES 
+		VALUES
 			(:id, :endpoint, :method, :json_input, :json_output)`, logDB)
 	if err != nil {
 		panic(err.Error())
@@ -331,10 +332,23 @@ func CreateLog(endpoint string, method string, input interface{}, output interfa
 
 }
 
-func StructToJson(input interface{}) (interface{}, error) {
+func StructToJson(input interface{}) []byte {
+
 	output, err := json.Marshal(input)
 	if err != nil {
-		return nil, err
+		panic(err.Error())
 	}
-	return string(output), nil
+	return output
+
+}
+
+func GetLogRows() []schema.LogDBJson {
+
+	logDB := []schema.LogDBJson{}
+	err := config.GetDB().Select(&logDB, "SELECT id, endpoint, method, json_input, json_output, created_on FROM log_db")
+	if err != nil {
+		log.Fatalln(err)
+	}
+	return logDB
+
 }
