@@ -34,10 +34,11 @@ func PostNumbers(c *gin.Context) {
 	}
 
 	output := utils.ArrayStringsValidateWithInput(utils.SplitStringByCharToArray(utils.DecodeBase64String(json.Numbers), "\n"))
-	jsonResult := gin.H{"numbers": output}
+	jsonInput := gin.H{"input": json}
+	jsonOutput := gin.H{"output": output}
 
-	utils.CreateLog("/numbers", "POST", json, jsonResult)
-	c.JSON(http.StatusOK, jsonResult)
+	utils.CreateLog("/numbers", "POST", jsonInput, jsonOutput)
+	c.JSON(http.StatusOK, jsonOutput)
 
 }
 
