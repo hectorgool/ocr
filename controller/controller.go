@@ -6,8 +6,22 @@ import (
 	"ocr/utils"
 
 	"github.com/gin-gonic/gin"
+	// gin-swagger middleware
+	//"github.com/swaggo/gin-swagger" // gin-swagger middleware
+	//"github.com/swaggo/files" // gin-swagger middleware
 )
 
+// @BasePath /api/v1
+
+// PingExample godoc
+// @Summary ping example
+// @Schemes
+// @Description do ping
+// @Tags example
+// @Accept json
+// @Produce json
+// @Success 200 {string} Helloworld
+// @Router / [get]
 func GetRoot(c *gin.Context) {
 
 	c.JSON(200, gin.H{
@@ -16,6 +30,17 @@ func GetRoot(c *gin.Context) {
 
 }
 
+// @BasePath /api/v1
+
+// PingExample godoc
+// @Summary ping example
+// @Schemes
+// @Description do ping
+// @Tags example
+// @Accept json
+// @Produce json
+// @Success 200 {string} Helloworld
+// @Router /number [get]
 func GetAccountNumber(c *gin.Context) {
 
 	c.JSON(200, gin.H{
@@ -24,6 +49,17 @@ func GetAccountNumber(c *gin.Context) {
 
 }
 
+// @BasePath /api/v1
+
+// PingExample godoc
+// @Summary ping example
+// @Schemes
+// @Description do ping
+// @Tags example
+// @Accept json
+// @Produce json
+// @Success 200 {string} Helloworld
+// @Router /numbers [post]
 func PostNumbers(c *gin.Context) {
 
 	var json schema.JsonRequest
@@ -42,6 +78,17 @@ func PostNumbers(c *gin.Context) {
 
 }
 
+// @BasePath /api/v1
+
+// PingExample godoc
+// @Summary ping example
+// @Schemes
+// @Description do ping
+// @Tags example
+// @Accept json
+// @Produce json
+// @Success 200 {string} Helloworld
+// @Router /logs [get]
 func GetLogs(c *gin.Context) {
 
 	c.JSON(200, gin.H{

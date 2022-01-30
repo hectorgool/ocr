@@ -2,6 +2,7 @@ package config
 
 import (
 	"ocr/schema"
+	"runtime"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
@@ -13,6 +14,9 @@ var (
 )
 
 func init() {
+
+	// Allocate a logical processor for every available core.
+	runtime.GOMAXPROCS(runtime.NumCPU())
 
 	db, err = sqlx.Connect("mysql", "santo:asdf@(db:3306)/bunsan")
 	if err != nil {
