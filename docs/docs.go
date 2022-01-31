@@ -17,76 +17,42 @@ var doc = `{
     "info": {
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
-        "contact": {},
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "Héctor González",
+            "url": "http://github.com/hectorgool/ocr",
+            "email": "hector.gonzalez@bunsan.io"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
         "version": "{{.Version}}"
     },
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/": {
-            "get": {
-                "description": "do ping",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "example"
-                ],
-                "summary": "ping example",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
         "/logs": {
             "get": {
-                "description": "do ping",
-                "consumes": [
-                    "application/json"
-                ],
+                "description": "Get a json with, id, Endpoint, Method, Input, Output, CreatedOn, stored in log_db of database",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "example"
+                    "bunsan"
                 ],
-                "summary": "ping example",
+                "summary": "Get a json with the fields in the table log_db of database",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/number": {
-            "get": {
-                "description": "do ping",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "example"
-                ],
-                "summary": "ping example",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "string"
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            }
                         }
                     }
                 }
@@ -94,7 +60,7 @@ var doc = `{
         },
         "/numbers": {
             "post": {
-                "description": "do ping",
+                "description": "Send data to the server to proces the numbers of the OCR, the list of numbers must be code in base64 for proces",
                 "consumes": [
                     "application/json"
                 ],
@@ -102,14 +68,20 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "example"
+                    "bunsan"
                 ],
-                "summary": "ping example",
+                "summary": "send data to the server to proces the numbers of the OCR",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "string"
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            }
                         }
                     }
                 }
@@ -129,12 +101,12 @@ type swaggerInfo struct {
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = swaggerInfo{
-	Version:     "",
-	Host:        "",
-	BasePath:    "",
+	Version:     "1.0",
+	Host:        "localhost:8080",
+	BasePath:    "/api/v1",
 	Schemes:     []string{},
-	Title:       "",
-	Description: "",
+	Title:       "Lector OCR API",
+	Description: "This is a sample Lector OCR server.",
 }
 
 type s struct{}

@@ -116,7 +116,7 @@ _ _ _ _ _ _ _ _ | _| _||_| _ |_ ||_||_| ||_ _| | _||_| ||_| _
 #### Ejemplo de Post, envía el contenido del archivo test_numbers.txt, en un json codificado en base64
 
 ```sh
-curl -i -X  POST http://localhost:8080/numbers   -H "Accept: application/json" -H "Content-Type: application/json"   -d '{ 
+curl -i -X  POST http://localhost:8080/api/v1/bunsan/numbers   -H "Accept: application/json" -H "Content-Type: application/json"   -d '{ 
     "numbers": 
     "IF8gIF8gIF8gIF8gIF8gIF8gIF8gIF8gIF8gCnwgfHwgfHwgfHwgfHwgfHwgfHwgfHwgfHwgfAp8X3x8X3x8X3x8X3x8X3x8X3x8X3x8X3x8X3wKCiAgICAgICAgICAgICAgICAgICAgICAgICAgIAogIHwgIHwgIHwgIHwgIHwgIHwgIHwgIHwgIHwKICB8ICB8ICB8ICB8ICB8ICB8ICB8ICB8ICB8CgogXyAgXyAgXyAgXyAgXyAgXyAgXyAgXyAgXyAKIF98IF98IF98IF98IF98IF98IF98IF98IF98CnxfIHxfIHxfIHxfIHxfIHxfIHxfIHxfIHxfIAoKIF8gIF8gIF8gIF8gIF8gIF8gIF8gIF8gIF8gCiBffCBffCBffCBffCBffCBffCBffCBffCBffAogX3wgX3wgX3wgX3wgX3wgX3wgX3wgX3wgX3wKCiAgICAgICAgICAgICAgICAgICAgICAgICAgIAp8X3x8X3x8X3x8X3x8X3x8X3x8X3x8X3x8X3wKICB8ICB8ICB8ICB8ICB8ICB8ICB8ICB8ICB8CgogXyAgXyAgXyAgXyAgXyAgXyAgXyAgXyAgXyAKfF8gfF8gfF8gfF8gfF8gfF8gfF8gfF8gfF8gCiBffCBffCBffCBffCBffCBffCBffCBffCBffAoKIF8gIF8gIF8gIF8gIF8gIF8gIF8gIF8gIF8gCnxfIHxfIHxfIHxfIHxfIHxfIHxfIHxfIHxfIAp8X3x8X3x8X3x8X3x8X3x8X3x8X3x8X3x8X3wKCiBfICBfICBfICBfICBfICBfICBfICBfICBfIAogIHwgIHwgIHwgIHwgIHwgIHwgIHwgIHwgIHwKICB8ICB8ICB8ICB8ICB8ICB8ICB8ICB8ICB8CgogXyAgXyAgXyAgXyAgXyAgXyAgXyAgXyAgXyAKfF98fF98fF98fF98fF98fF98fF98fF98fF98CnxffHxffHxffHxffHxffHxffHxffHxffHxffAoKIF8gIF8gIF8gIF8gIF8gIF8gIF8gIF8gIF8gCnxffHxffHxffHxffHxffHxffHxffHxffHxffAogX3wgX3wgX3wgX3wgX3wgX3wgX3wgX3wgX3wKCiAgICBfICBfICAgICBfICBfICBfICBfICBfIAogIHwgX3wgX3x8X3x8XyB8XyAgIHx8X3x8X3wKICB8fF8gIF98ICB8IF98fF98ICB8fF98IF98CgogXyAgXyAgXyAgXyAgXyAgXyAgXyAgXyAgICAKfCB8fCB8fCB8fCB8fCB8fCB8fCB8fF8gICB8CnxffHxffHxffHxffHxffHxffHxffCBffCAgfAoKICAgIF8gIF8gIF8gIF8gIF8gIF8gICAgIF8gCnxffHxffHwgfHwgfHxfICAgfCAgfCAgfCAgfAogIHwgX3x8X3x8X3x8X3wgIHwgIHwgIHx8X3wKCiAgICBfICBfICAgICBfICBfICBfICBfICAgIAogIHwgX3wgX3x8X3wgXyB8XyAgIHx8X3x8X3wKICB8fF8gIF98ICB8IF8gfF98ICB8fF98IF98" 
 }'
@@ -137,3 +137,14 @@ docker exec -it ocr_db mysql -u santo -pasdf bunsan
 | json_input  | json  | YES  |   |  NULL  |   |
 | json_output  | json  | YES  |   | NULL   |   |
 | created_on  | datetime  | NO  |   | CURRENT_TIMESTAMP  | DEFAULT_GENERATED  |
+
+#### Generate Doc with Swagger
+```sh
+swag init --parseDependency -g main.go
+swag init --parseDependency --parseInternal
+swag init --parseDependency true
+```
+
+#### References
+https://github.com/swaggo/swag/issues/817
+https://stackoverflow.com/questions/65947311/how-to-use-a-type-definition-in-another-file-with-swaggo

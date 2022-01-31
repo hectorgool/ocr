@@ -19,12 +19,12 @@ type (
 		Numbers string `json:"numbers" binding:"required"`
 	}
 	LogDB struct {
-		ID        uuid.UUID       `json:"id" db:"id" binding:"required"`
-		EndPoint  string          `db:"endpoint"`
-		Method    string          `db:"method"`
+		ID        uuid.UUID       `json:"id" db:"id" binding:"required" example:"788dd647-c0db-45b8-bf4c-92db8a828035"`
+		EndPoint  string          `db:"endpoint" example:"/api/v1/bunsan/numbers"`
+		Method    string          `db:"method" example:"POST"`
 		Input     json.RawMessage `db:"json_input"`
 		Output    json.RawMessage `db:"json_output"`
-		CreatedOn string          `db:"created_on"`
+		CreatedOn string          `db:"created_on" example:"2022-01-27 19:04:00"`
 	}
 )
 

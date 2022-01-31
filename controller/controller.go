@@ -6,59 +6,18 @@ import (
 	"ocr/utils"
 
 	"github.com/gin-gonic/gin"
-	// gin-swagger middleware
-	//"github.com/swaggo/gin-swagger" // gin-swagger middleware
-	//"github.com/swaggo/files" // gin-swagger middleware
 )
 
 // @BasePath /api/v1
 
-// PingExample godoc
-// @Summary ping example
-// @Schemes
-// @Description do ping
-// @Tags example
+// PostNumbers godoc
+// @Summary send data to the server to proces the numbers of the OCR
+// @Schemes LogDB
+// @Description Send data to the server to proces the numbers of the OCR, the list of numbers must be code in base64 for proces
+// @Tags bunsan
 // @Accept json
 // @Produce json
-// @Success 200 {string} Helloworld
-// @Router / [get]
-func GetRoot(c *gin.Context) {
-
-	c.JSON(200, gin.H{
-		"data": "ocr",
-	})
-
-}
-
-// @BasePath /api/v1
-
-// PingExample godoc
-// @Summary ping example
-// @Schemes
-// @Description do ping
-// @Tags example
-// @Accept json
-// @Produce json
-// @Success 200 {string} Helloworld
-// @Router /number [get]
-func GetAccountNumber(c *gin.Context) {
-
-	c.JSON(200, gin.H{
-		"accounts": utils.ArrayStringsValidate(),
-	})
-
-}
-
-// @BasePath /api/v1
-
-// PingExample godoc
-// @Summary ping example
-// @Schemes
-// @Description do ping
-// @Tags example
-// @Accept json
-// @Produce json
-// @Success 200 {string} Helloworld
+// @Success 200 {object} c.JSON(http.StatusOK, jsonOutput)
 // @Router /numbers [post]
 func PostNumbers(c *gin.Context) {
 
@@ -80,14 +39,13 @@ func PostNumbers(c *gin.Context) {
 
 // @BasePath /api/v1
 
-// PingExample godoc
-// @Summary ping example
-// @Schemes
-// @Description do ping
-// @Tags example
-// @Accept json
+// GetLogs godoc
+// @Summary Get a json with the fields in the table log_db of database
+// @Schemes LogDB
+// @Description Get a json with, id, Endpoint, Method, Input, Output, CreatedOn, stored in log_db of database
+// @Tags bunsan
 // @Produce json
-// @Success 200 {string} Helloworld
+// @Success 200 {object} GetLogs
 // @Router /logs [get]
 func GetLogs(c *gin.Context) {
 

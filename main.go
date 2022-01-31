@@ -10,28 +10,26 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
-// @title Swagger Example API
+// @title Lector OCR API
 // @version 1.0
-// @description This is a sample server Petstore server.
+// @description This is a sample Lector OCR server.
 // @termsOfService http://swagger.io/terms/
 
-// @contact.name API Support
-// @contact.url http://www.swagger.io/support
-// @contact.email support@swagger.io
+// @contact.name Héctor González
+// @contact.url http://github.com/hectorgool/ocr
+// @contact.email hector.gonzalez@bunsan.io
 
 // @license.name Apache 2.0
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
 
-// @host petstore.swagger.io:8080
-// @BasePath /v2
+// @host localhost:8080
+// @BasePath /api/v1
 func main() {
 
 	r := gin.Default()
 	docs.SwaggerInfo.BasePath = "/api/v1"
 	bunsanAPI := r.Group("/api/v1/bunsan")
 	{
-		bunsanAPI.GET("/", controller.GetRoot)
-		bunsanAPI.GET("/number", controller.GetAccountNumber)
 		bunsanAPI.POST("/numbers", controller.PostNumbers)
 		bunsanAPI.GET("/logs", controller.GetLogs)
 	}
